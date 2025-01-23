@@ -14,6 +14,6 @@ public class UI {
     }
 
     public void showTaskList(TaskList tasks) {
-
+        System.out.println(line + tasks.printTasks() + line);
     }
 }
