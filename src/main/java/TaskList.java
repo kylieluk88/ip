@@ -1,14 +1,14 @@
 public class TaskList {
-    private String[] tasks;
+    private Task[] tasks;
     private int count;
 
     public TaskList() {
-        this.tasks = new String[100];
+        this.tasks = new Task[100];
         this.count = 0;
     }
 
-    public void addTask(String task) {
-        tasks[count] = task;
+    public void addTask(String description) {
+        tasks[count] = new Task(description);
         count++;
     }
 
@@ -18,7 +18,8 @@ public class TaskList {
         } else {
             StringBuilder taskList = new StringBuilder();
             for (int i = 0; i < count; i++) {
-                taskList.append((i + 1)).append(". ").append(tasks[i]).append("\n");
+                taskList.append((i + 1)).append(". ").
+                append(tasks[i].toString()).append("\n");
             }
             return taskList.toString();
         }
