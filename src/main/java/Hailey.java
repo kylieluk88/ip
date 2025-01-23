@@ -1,26 +1,19 @@
 import java.util.Scanner;
 
 public class Hailey {
-    static String line = "____________________________________________________________\n";
     public static void main(String[] args) {
-        System.out.println(line + "Hello! I'm Hailey :)\n"
-            + "What can I do for you?\n" + line);
-
+        UI ui = new UI();
+        ui.greet();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
             if (input.equals("bye")) {
-                System.out.println(line);
-                exit();
+                ui.sayBye();
                 break;
             } else {
-                System.out.println(input +"\n" + line);
+                ui.addTask(input);
             }
         }
         scanner.close();
-    }
-
-    static void exit() {
-        System.out.println("Bye. Hope to see you again soon!\n" + line);
     }
 }
