@@ -15,6 +15,14 @@ public class Hailey {
                 break;
             } else if (input.equals("list")) {
                 ui.showTaskList(tasks);
+            } else if (input.startsWith("mark ")) {
+                int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                ui.markDone();
+                tasks.markDone(taskNumber);
+            } else if (input.startsWith("unmark ")) {
+                int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                ui.unmarkDone();
+                tasks.unmarkDone(taskNumber);
             } else {
                 ui.addTask(input);
                 tasks.addTask(input);

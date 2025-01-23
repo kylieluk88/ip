@@ -14,6 +14,14 @@ public class UI {
     }
 
     public void showTaskList(TaskList tasks) {
-        System.out.println(line + tasks.printTasks() + line);
+        System.out.println(line + "Here are the tasks in your list:\n" + tasks.printTasks() + line);
+    }
+
+    public void markDone() {
+        System.out.println(line + "Nice! I've marked this task as done:\n");
+    }
+
+    public void unmarkDone() {
+        System.out.println(line + "OK, I've marked this task as not done yet:\n");
     }
 }

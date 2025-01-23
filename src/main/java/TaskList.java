@@ -12,6 +12,22 @@ public class TaskList {
         count++;
     }
 
+    public void markDone(int taskNumber) {
+        if (taskNumber >= 0 && taskNumber < count) {
+            Task task = tasks[taskNumber];
+            task.markAsDone();
+            System.out.println(task.toString());
+        }
+    }
+
+    public void unmarkDone(int taskNumber) {
+        if (taskNumber >= 0 && taskNumber < count) {
+            Task task = tasks[taskNumber];
+            task.unmarkAsDone();
+            System.out.println(task.toString());
+        }
+    }
+
     public String printTasks() {
         if (count == 0) {
             return "No tasks for now, relax!";
