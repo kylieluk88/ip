@@ -40,4 +40,8 @@ public class TaskList {
             return taskList.toString();
         }
     }
+
+    public int getCount() {
+        return count;
+    }
 }

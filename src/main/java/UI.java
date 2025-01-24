@@ -9,8 +9,9 @@ public class UI {
         System.out.println(line + "Bye. Hope to see you again soon!\n" + line);
     }
 
-    public void addTask() {
-        System.out.println(line + "Got it. I've added this task:\n" + line);
+    public void addTask(Task task, TaskList tasks) {
+        System.out.println(line + "Got it. I've added this task:\n  " + task.toString()
+                + "\nNow you have " + tasks.getCount() + " tasks in the list.\n" + line);
     }
 
     public void showTaskList(TaskList tasks) {
