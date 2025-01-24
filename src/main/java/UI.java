@@ -38,6 +38,12 @@ public class UI {
         System.out.println(line + "OK, I've marked this task as not done yet:\n");
     }
 
+    public void deleteTask(TaskList tasks, int taskNumber) {
+        Task task = tasks.getTask(taskNumber);
+        System.out.println(line + "okay, I've removed this task:\n" + task.toString() +
+                "\nNow you have " + (tasks.getCount() - 1) + " tasks in the list.\n" + line);
+    }
+
     public void errorMessage() {
         System.out.println("type 'help' to see a list of command formats :)\n" + line);
     }

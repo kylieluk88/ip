@@ -1,5 +1,3 @@
-import javafx.concurrent.Task;
-
 import java.util.Scanner;
 
 public class Hailey {
@@ -27,6 +25,14 @@ public class Hailey {
                     int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
                     ui.unmarkDone();
                     tasks.unmarkDone(taskNumber);
+                } else if (input.startsWith("delete ")) {
+                    int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                    if (taskNumber <0 || taskNumber >= tasks.getCount()) {
+                        throw new HaileyException("Invalid task number! Please choose a task number within your list.\n" +
+                                "You currently have " + tasks.getCount() + " tasks.");
+                    }
+                    ui.deleteTask(tasks, taskNumber);
+                    tasks.deleteTask(taskNumber);
                 } else if (input.startsWith("deadline")) {
                     if (!input.contains("/by")) {
                         throw new HaileyException("oops! deadline must include '/by' keyword");
@@ -51,14 +57,14 @@ public class Hailey {
                     ui.addTask(event, tasks);
                 } else if (input.startsWith("todo ")) {
                     String description = input.substring(5);
-                    if (description.equals("")) {
+                    if (description.isEmpty()) {
                         throw new EmptyDescriptionException("todo");
                     }
                     ToDo todo = new ToDo(description);
                     tasks.addTask(todo);
                     ui.addTask(todo, tasks);
                 } else {
-                    throw new UnknownCommandException();
+                    throw new HaileyException("Sorry, didn't quite catch that. What did you say?");
                 }
             } catch (HaileyException e) {
                 ui.errorMessage();
