@@ -55,11 +55,11 @@ public class Hailey {
                     Event event = new Event(parts[0], parts[1], parts[2]);
                     tasks.addTask(event);
                     ui.addTask(event, tasks);
-                } else if (input.startsWith("todo ")) {
-                    String description = input.substring(5);
-                    if (description.isEmpty()) {
+                } else if (input.startsWith("todo")) {
+                    if (input.substring(4).isEmpty()) {
                         throw new EmptyDescriptionException("todo");
                     }
+                    String description = input.substring(5);
                     ToDo todo = new ToDo(description);
                     tasks.addTask(todo);
                     ui.addTask(todo, tasks);
