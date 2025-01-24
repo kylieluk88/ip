@@ -23,9 +23,18 @@ public class Hailey {
                 int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
                 ui.unmarkDone();
                 tasks.unmarkDone(taskNumber);
-            } else {
-                ui.addTask(input);
-                tasks.addTask(input);
+            } else if (input.startsWith("deadline ")) {
+                ui.addTask();
+                String[] parts = input.substring(9).split(" /by ");
+                tasks.addTask(new Deadline(parts[0], parts[1]));
+            } else if (input.startsWith("event ")) {
+                ui.addTask();
+                String[] parts = input.substring(6).split(" /from | /to ");
+                tasks.addTask(new Event(parts[0], parts[1], parts[2]));
+            } else if (input.startsWith("todo ")) {
+                ui.addTask();
+                String description = input.substring(5);
+                tasks.addTask(new ToDo(description));
             }
         }
         scanner.close();

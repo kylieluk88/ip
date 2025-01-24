@@ -7,8 +7,8 @@ public class TaskList {
         this.count = 0;
     }
 
-    public void addTask(String description) {
-        tasks[count] = new Task(description);
+    public void addTask(Task task) {
+        tasks[count] = task;
         count++;
     }
 
