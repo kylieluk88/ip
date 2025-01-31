@@ -1,9 +1,16 @@
+import java.io.*;
 import java.util.Scanner;
 
 public class Hailey {
-    public static void main(String[] args) throws HaileyException{
+    private static final String FILE_PATH = "data/hailey.txt";
+
+    public static void main(String[] args) throws HaileyException, IOException {
         UI ui = new UI();
+        File file = new File(FILE_PATH);
         TaskList tasks = new TaskList();
+        if (file.exists()) {
+            tasks = readFile(file);
+        }
         ui.greet();
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -71,5 +78,44 @@ public class Hailey {
             }
         }
         scanner.close();
+        writeFile(tasks, FILE_PATH);
+    }
+
+    private static TaskList readFile(File file) throws FileNotFoundException {
+        TaskList tasks = new TaskList();
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            try {
+                String[] parts = line.split(" | ");
+                String type = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+
+                Task task;
+                if (type.equals("T")) {
+                    task = new ToDo(description);
+                } else if (type.equals("D")) {
+                    task = new Deadline(description, parts[3]);
+                } else if (type.equals("E")) {
+                    task = new Event(description, parts[3], parts[4]);
+                } else {
+                    throw new HaileyException("Invalid Task Type");
+                }
+
+                if (isDone) {
+                    task.markAsDone();
+                }
+                tasks.addTask(task);
+            } catch (Exception e) {
+                System.out.println("Skipping corrupted line: " + line);
+            }
+        }
+        return tasks;
+    }
+
+    private static void writeFile(TaskList tasks, String FILE_PATH) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+        writer.write(tasks.printTasks());
     }
 }

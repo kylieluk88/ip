@@ -45,6 +45,14 @@ public class TaskList {
         }
     }
 
+    public String saveTasks() {
+        StringBuilder taskList = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            taskList.append(tasks.get(i).saveFormat()).append("\n");
+        }
+        return taskList.toString();
+    }
+
     public int getCount() {
         return tasks.size();
     }
