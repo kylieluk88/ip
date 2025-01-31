@@ -102,10 +102,10 @@ public class Hailey {
             String line = scanner.nextLine();
             try {
                 String[] parts = line.split(" \\| ");
+                System.out.println(Arrays.stream(parts).toList());
                 String type = parts[0];
                 boolean isDone = parts[1].equals("1");
                 String description = parts[2];
-
                 Task task;
                 if (type.equals("T")) {
                     task = new ToDo(description);
@@ -139,11 +139,15 @@ public class Hailey {
 
     private static LocalDateTime parseDateTime(String dateTimeStr) throws HaileyException {
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-            return LocalDateTime.parse(dateTimeStr, formatter);
-        } catch (DateTimeParseException e) {
-            throw new HaileyException("Invalid date/time format. Please use the format: " +
-                    "d/M/yyyy HHmm (e.g., 2/12/2019 1800)");
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            return LocalDateTime.parse(dateTimeStr, inputFormatter);
+        } catch (DateTimeParseException e1) {
+            try {
+                DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                return LocalDateTime.parse(dateTimeStr, fileFormatter);
+            } catch (DateTimeParseException e2) {
+                throw new HaileyException("Invalid date/time format. Please use the format: d/M/yyyy HHmm (e.g., 2/12/2019 1800)");
+            }
         }
     }
 }
