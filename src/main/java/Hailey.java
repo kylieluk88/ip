@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Hailey {
@@ -6,10 +7,16 @@ public class Hailey {
 
     public static void main(String[] args) throws HaileyException, IOException {
         UI ui = new UI();
-        File file = new File(FILE_PATH);
         TaskList tasks = new TaskList();
+        File file = new File(FILE_PATH);
+        File directory = file.getParentFile();
+        if (directory != null && !directory.exists()) {
+            directory.mkdirs();
+        }
         if (file.exists()) {
             tasks = readFile(file);
+        } else {
+            file.createNewFile();
         }
         ui.greet();
         Scanner scanner = new Scanner(System.in);
@@ -78,7 +85,7 @@ public class Hailey {
             }
         }
         scanner.close();
-        writeFile(tasks, FILE_PATH);
+        writeFile(tasks, file);
     }
 
     private static TaskList readFile(File file) throws FileNotFoundException {
@@ -87,7 +94,7 @@ public class Hailey {
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             try {
-                String[] parts = line.split(" | ");
+                String[] parts = line.split(" \\| ");
                 String type = parts[0];
                 boolean isDone = parts[1].equals("1");
                 String description = parts[2];
@@ -114,8 +121,9 @@ public class Hailey {
         return tasks;
     }
 
-    private static void writeFile(TaskList tasks, String FILE_PATH) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
-        writer.write(tasks.printTasks());
+    private static void writeFile(TaskList tasks, File file) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+        writer.write(tasks.saveTasks());
+        writer.close();
     }
 }

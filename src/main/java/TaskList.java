@@ -34,7 +34,7 @@ public class TaskList {
 
     public String printTasks() {
         if (tasks.size() == 0) {
-            return "No tasks for now, relax!";
+            return "No tasks for now, relax!\n";
         } else {
             StringBuilder taskList = new StringBuilder();
             for (int i = 0; i < tasks.size(); i++) {
