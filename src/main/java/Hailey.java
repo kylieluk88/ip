@@ -1,6 +1,10 @@
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Hailey {
     private static final String FILE_PATH = "data/hailey.txt";
@@ -55,8 +59,9 @@ public class Hailey {
                     if (parts.length < 2) {
                         throw new EmptyDescriptionException("deadline");
                     }
-                    Deadline deadline = new Deadline(parts[0], parts[1]);
-                    tasks.addTask(new Deadline(parts[0], parts[1]));
+                    LocalDateTime by = parseDateTime(parts[1]);
+                    Deadline deadline = new Deadline(parts[0], by);
+                    tasks.addTask(new Deadline(parts[0], by));
                     ui.addTask(deadline, tasks);
                 } else if (input.startsWith("event ")) {
                     if (!input.contains("/from") || !input.contains("/to")) {
@@ -66,7 +71,9 @@ public class Hailey {
                     if (parts.length < 3) {
                         throw new EmptyDescriptionException("event");
                     }
-                    Event event = new Event(parts[0], parts[1], parts[2]);
+                    LocalDateTime start = parseDateTime(parts[1]);
+                    LocalDateTime end = parseDateTime(parts[2]);
+                    Event event = new Event(parts[0], start, end);
                     tasks.addTask(event);
                     ui.addTask(event, tasks);
                 } else if (input.startsWith("todo")) {
@@ -103,9 +110,12 @@ public class Hailey {
                 if (type.equals("T")) {
                     task = new ToDo(description);
                 } else if (type.equals("D")) {
-                    task = new Deadline(description, parts[3]);
+                    LocalDateTime by = parseDateTime(parts[3]);
+                    task = new Deadline(description, by);
                 } else if (type.equals("E")) {
-                    task = new Event(description, parts[3], parts[4]);
+                    LocalDateTime start = parseDateTime(parts[3]);
+                    LocalDateTime end = parseDateTime(parts[4]);
+                    task = new Event(description, start, end);
                 } else {
                     throw new HaileyException("Invalid Task Type");
                 }
@@ -125,5 +135,15 @@ public class Hailey {
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         writer.write(tasks.saveTasks());
         writer.close();
+    }
+
+    private static LocalDateTime parseDateTime(String dateTimeStr) throws HaileyException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            return LocalDateTime.parse(dateTimeStr, formatter);
+        } catch (DateTimeParseException e) {
+            throw new HaileyException("Invalid date/time format. Please use the format: " +
+                    "d/M/yyyy HHmm (e.g., 2/12/2019 1800)");
+        }
     }
 }
