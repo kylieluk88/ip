@@ -1,9 +1,23 @@
+import java.io.*;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Hailey {
-    public static void main(String[] args) throws HaileyException{
+    private static final String FILE_PATH = "data/hailey.txt";
+
+    public static void main(String[] args) throws HaileyException, IOException {
         UI ui = new UI();
         TaskList tasks = new TaskList();
+        File file = new File(FILE_PATH);
+        File directory = file.getParentFile();
+        if (directory != null && !directory.exists()) {
+            directory.mkdirs();
+        }
+        if (file.exists()) {
+            tasks = readFile(file);
+        } else {
+            file.createNewFile();
+        }
         ui.greet();
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -71,5 +85,45 @@ public class Hailey {
             }
         }
         scanner.close();
+        writeFile(tasks, file);
+    }
+
+    private static TaskList readFile(File file) throws FileNotFoundException {
+        TaskList tasks = new TaskList();
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            try {
+                String[] parts = line.split(" \\| ");
+                String type = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+
+                Task task;
+                if (type.equals("T")) {
+                    task = new ToDo(description);
+                } else if (type.equals("D")) {
+                    task = new Deadline(description, parts[3]);
+                } else if (type.equals("E")) {
+                    task = new Event(description, parts[3], parts[4]);
+                } else {
+                    throw new HaileyException("Invalid Task Type");
+                }
+
+                if (isDone) {
+                    task.markAsDone();
+                }
+                tasks.addTask(task);
+            } catch (Exception e) {
+                System.out.println("Skipping corrupted line: " + line);
+            }
+        }
+        return tasks;
+    }
+
+    private static void writeFile(TaskList tasks, File file) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+        writer.write(tasks.saveTasks());
+        writer.close();
     }
 }
