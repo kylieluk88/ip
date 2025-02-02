@@ -1,9 +1,8 @@
 package hailey.ui;
 
 import hailey.task.*;
-import hailey.exception.HaileyException;
 
-public class UI {
+public class Ui {
     static String line = "____________________________________________________________\n";
     public void greet() {
         System.out.println(line + "Hello! I'm Hailey :)\n"
