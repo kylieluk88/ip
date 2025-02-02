@@ -1,3 +1,5 @@
+import org.w3c.dom.ls.LSOutput;
+
 public class UI {
     static String line = "____________________________________________________________\n";
     public void greet() {
@@ -46,5 +48,9 @@ public class UI {
 
     public void errorMessage() {
         System.out.println("type 'help' to see a list of command formats :)\n" + line);
+    }
+
+    public void showLoadingError() {
+        System.out.println("error loading past tasks");
     }
 }

@@ -8,17 +8,29 @@ import java.time.format.DateTimeParseException;
 
 public class Hailey {
     private static final String FILE_PATH = "data/hailey.txt";
+    private Storage storage;
+    private TaskList tasks;
+    private UI ui;
 
-    public static void main(String[] args) throws HaileyException, IOException {
-        UI ui = new UI();
-        TaskList tasks = new TaskList();
+    public Hailey(String filePath) {
+        ui = new UI();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.readFile());
+        } catch (HaileyException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
+
+    public void run() throws IOException {
         File file = new File(FILE_PATH);
         File directory = file.getParentFile();
         if (directory != null && !directory.exists()) {
             directory.mkdirs();
         }
         if (file.exists()) {
-            tasks = readFile(file);
+            tasks = storage.readFile();
         } else {
             file.createNewFile();
         }
@@ -92,58 +104,10 @@ public class Hailey {
             }
         }
         scanner.close();
-        writeFile(tasks, file);
+        storage.writeFile(tasks);
     }
 
-    private static TaskList readFile(File file) throws FileNotFoundException {
-        TaskList tasks = new TaskList();
-        Scanner scanner = new Scanner(file);
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            try {
-                String[] parts = line.split(" \\| ");
-                String type = parts[0];
-                boolean isDone = parts[1].equals("1");
-                String description = parts[2];
-
-                Task task;
-                if (type.equals("T")) {
-                    task = new ToDo(description);
-                } else if (type.equals("D")) {
-                    LocalDateTime by = parseDateTime(parts[3]);
-                    task = new Deadline(description, by);
-                } else if (type.equals("E")) {
-                    LocalDateTime start = parseDateTime(parts[3]);
-                    LocalDateTime end = parseDateTime(parts[4]);
-                    task = new Event(description, start, end);
-                } else {
-                    throw new HaileyException("Invalid Task Type");
-                }
-
-                if (isDone) {
-                    task.markAsDone();
-                }
-                tasks.addTask(task);
-            } catch (Exception e) {
-                System.out.println("Skipping corrupted line: " + line);
-            }
-        }
-        return tasks;
-    }
-
-    private static void writeFile(TaskList tasks, File file) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-        writer.write(tasks.saveTasks());
-        writer.close();
-    }
-
-    private static LocalDateTime parseDateTime(String dateTimeStr) throws HaileyException {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-            return LocalDateTime.parse(dateTimeStr, formatter);
-        } catch (DateTimeParseException e) {
-            throw new HaileyException("Invalid date/time format. Please use the format: " +
-                    "d/M/yyyy HHmm (e.g., 2/12/2019 1800)");
-        }
+    public static void main(String[] args) throws IOException {
+        new Hailey("data/tasks.txt").run();
     }
 }
