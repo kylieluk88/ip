@@ -1,9 +1,10 @@
 package hailey.ui;
 
 import hailey.task.*;
-import hailey.exception.HaileyException;
 
-public class UI {
+import java.util.ArrayList;
+
+public class Ui {
     static String line = "____________________________________________________________\n";
     public void greet() {
         System.out.println(line + "Hello! I'm Hailey :)\n"
@@ -53,7 +54,16 @@ public class UI {
         System.out.println("type 'help' to see a list of command formats :)\n" + line);
     }
 
-    public void showLoadingError() {
-        System.out.println("error loading past tasks");
+    public void showMatchingTasks(ArrayList<Task> matchingTasks) {
+        System.out.println(line);
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i + 1) + "." + matchingTasks.get(i));
+            }
+        }
+        System.out.println(line);
     }
 }

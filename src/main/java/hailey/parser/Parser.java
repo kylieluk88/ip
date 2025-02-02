@@ -2,12 +2,13 @@ package hailey.parser;
 
 import hailey.task.*;
 import hailey.storage.Storage;
-import hailey.ui.UI;
+import hailey.ui.Ui;
 import hailey.exception.HaileyException;
 import hailey.exception.EmptyDescriptionException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 /**
  * The Parser class interprets user input and executes the corresponding commands.
@@ -23,7 +24,7 @@ public class Parser {
      * @return A boolean indicating whether the program should continue running.
      * @throws HaileyException If an invalid command is encountered.
      */
-    public boolean processCommand(String input, TaskList tasks, UI ui, Storage storage) throws HaileyException {
+    public boolean processCommand(String input, TaskList tasks, Ui ui, Storage storage) throws HaileyException {
         if (input.equals("bye")) {
             ui.sayBye();
             return false;
@@ -80,6 +81,10 @@ public class Parser {
             ToDo todo = new ToDo(description);
             tasks.addTask(todo);
             ui.addTask(todo, tasks);
+        } else if (input.startsWith("find ")) {
+            String keyword = input.substring(5).trim();
+            ArrayList<Task> matchingTasks = tasks.find(keyword);
+            ui.showMatchingTasks(matchingTasks);
         } else {
             throw new HaileyException("Sorry, didn't quite catch that. What did you say?");
         }

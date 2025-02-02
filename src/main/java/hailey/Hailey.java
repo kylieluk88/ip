@@ -3,7 +3,7 @@ package hailey;
 import hailey.parser.Parser;
 import hailey.storage.Storage;
 import hailey.task.TaskList;
-import hailey.ui.UI;
+import hailey.ui.Ui;
 import hailey.exception.HaileyException;
 import java.io.*;
 import java.util.Scanner;
@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class Hailey {
     private Storage storage;
     private TaskList tasks;
-    private UI ui;
+    private Ui ui;
     private Parser parser;
 
     /**
@@ -23,7 +23,7 @@ public class Hailey {
      * @param filePath The path to the storage file.
      */
     public Hailey(String filePath) {
-        this.ui = new UI();
+        this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.parser = new Parser();
         try {
