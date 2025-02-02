@@ -77,15 +77,10 @@ public class Storage {
 
     private static LocalDateTime parseDateTime(String dateTimeStr) throws HaileyException {
         try {
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-            return LocalDateTime.parse(dateTimeStr, inputFormatter);
-        } catch (DateTimeParseException e1) {
-            try {
-                DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-                return LocalDateTime.parse(dateTimeStr, fileFormatter);
-            } catch (DateTimeParseException e2) {
-                throw new HaileyException("Invalid date/time format. Please use the format: d/M/yyyy HHmm (e.g., 2/12/2019 1800)");
-            }
+            DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            return LocalDateTime.parse(dateTimeStr, fileFormatter);
+        } catch (DateTimeParseException e2) {
+            throw new HaileyException("Invalid date/time format. Please use the format: d/M/yyyy HHmm (e.g., 2/12/2019 1800)");
         }
     }
 }
