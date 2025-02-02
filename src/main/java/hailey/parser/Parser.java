@@ -2,7 +2,7 @@ package hailey.parser;
 
 import hailey.task.*;
 import hailey.storage.Storage;
-import hailey.ui.UI;
+import hailey.ui.Ui;
 import hailey.exception.HaileyException;
 import hailey.exception.EmptyDescriptionException;
 import java.time.LocalDateTime;
@@ -23,7 +23,7 @@ public class Parser {
      * @return A boolean indicating whether the program should continue running.
      * @throws HaileyException If an invalid command is encountered.
      */
-    public boolean processCommand(String input, TaskList tasks, UI ui, Storage storage) throws HaileyException {
+    public boolean processCommand(String input, TaskList tasks, Ui ui, Storage storage) throws HaileyException {
         if (input.equals("bye")) {
             ui.sayBye();
             return false;
