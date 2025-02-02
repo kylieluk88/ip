@@ -8,6 +8,7 @@ import hailey.exception.EmptyDescriptionException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 /**
  * The Parser class interprets user input and executes the corresponding commands.
@@ -80,6 +81,10 @@ public class Parser {
             ToDo todo = new ToDo(description);
             tasks.addTask(todo);
             ui.addTask(todo, tasks);
+        } else if (input.startsWith("find ")) {
+            String keyword = input.substring(5).trim();
+            ArrayList<Task> matchingTasks = tasks.find(keyword);
+            ui.showMatchingTasks(matchingTasks);
         } else {
             throw new HaileyException("Sorry, didn't quite catch that. What did you say?");
         }

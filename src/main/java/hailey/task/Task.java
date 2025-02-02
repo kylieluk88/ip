@@ -51,4 +51,8 @@ public class Task {
     public String saveFormat() {
         return " | " + (isDone ? "1" : "0") + " | " + description;
     }
+
+    public String getDescription() {
+        return this.description;
+    }
 }
