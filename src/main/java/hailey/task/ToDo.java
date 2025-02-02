@@ -12,11 +12,19 @@ public class ToDo extends Task {
         super(description);
     }
 
+    /**
+     * Returns the string representation of the task.
+     * @return The formatted task string.
+     */
     @Override
     public String toString() {
         return "[T]" + super.toString();
     }
 
+    /**
+     * Returns a formatted string for saving the Event task to a file.
+     * @return The formatted save string.
+     */
     public String saveFormat() {
         return "T" + super.saveFormat();
     }

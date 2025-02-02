@@ -21,12 +21,20 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Returns the string representation of the task.
+     * @return The formatted task string.
+     */
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
         return "[D]" + super.toString() + " (by: " + by.format(formatter) + ")";
     }
 
+    /**
+     * Returns a formatted string for saving the Event task to a file.
+     * @return The formatted save string.
+     */
     public String saveFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return "D" + super.saveFormat() + " | " + by.format(formatter);
