@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 
 public class Hailey {
-    private static final String FILE_PATH = "data/hailey.txt";
     private Storage storage;
     private TaskList tasks;
     private UI ui;
@@ -21,16 +20,7 @@ public class Hailey {
     }
 
     public void run() throws IOException {
-        File file = new File(FILE_PATH);
-        File directory = file.getParentFile();
-        if (directory != null && !directory.exists()) {
-            directory.mkdirs();
-        }
-        if (file.exists()) {
-            tasks = storage.readFile();
-        } else {
-            file.createNewFile();
-        }
+        tasks = storage.readFile();
         ui.greet();
         Scanner scanner = new Scanner(System.in);
         boolean isRunning = true;
