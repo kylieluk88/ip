@@ -8,13 +8,20 @@ import hailey.exception.HaileyException;
 import java.io.*;
 import java.util.Scanner;
 
-
+/**
+ * The main class of the Hailey chatbot application.
+ * Initializes components and runs the chatbot.
+ */
 public class Hailey {
     private Storage storage;
     private TaskList tasks;
     private UI ui;
     private Parser parser;
 
+    /**
+     * Constructs a HaileyBot instance.
+     * @param filePath The path to the storage file.
+     */
     public Hailey(String filePath) {
         this.ui = new UI();
         this.storage = new Storage(filePath);
@@ -26,6 +33,9 @@ public class Hailey {
         }
     }
 
+    /**
+     * Starts the chatbot and processes user commands.
+     */
     public void run() throws IOException {
         tasks = storage.readFile();
         ui.greet();
@@ -43,6 +53,10 @@ public class Hailey {
         storage.writeFile(tasks);
     }
 
+    /**
+     * The main entry point of the program.
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) throws IOException {
         new Hailey("data/tasks.txt").run();
     }

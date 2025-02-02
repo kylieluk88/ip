@@ -9,14 +9,24 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles loading and saving tasks from a file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage instance.
+     * @param filePath The path of the storage file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         checkFileExists();
     }
 
+    /**
+     * Ensures that the storage file exists. Creates it if necessary.
+     */
     private void checkFileExists() {
         File file = new File(filePath);
         File directory = file.getParentFile();
@@ -33,7 +43,11 @@ public class Storage {
         }
     }
 
-
+    /**
+     * Loads the tasks from the storage file.
+     * @return A list of tasks loaded from the file.
+     * @throws FileNotFoundException If there is an issue loading the file.
+     */
     public TaskList readFile() throws FileNotFoundException {
         TaskList tasks = new TaskList();
         File file = new File(filePath);
@@ -71,6 +85,10 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the tasks to the storage file.
+     * @param tasks The list of tasks to save.
+     */
     public void writeFile(TaskList tasks) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write(tasks.saveTasks());

@@ -1,8 +1,13 @@
 package hailey.task;
-import hailey.exception.HaileyException;
-
+/**
+ * Represents a simple task without a deadline or time range.
+ */
 public class ToDo extends Task {
 
+    /**
+     * Constructs a ToDo task.
+     * @param description The description of the ToDo task.
+     */
     public ToDo(String description) {
         super(description);
     }

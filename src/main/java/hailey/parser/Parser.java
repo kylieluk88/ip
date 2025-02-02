@@ -9,7 +9,20 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class interprets user input and executes the corresponding commands.
+ */
 public class Parser {
+
+    /**
+     * Processes the user command and performs the appropriate actions.
+     * @param input The user's input command.
+     * @param tasks The task list that stores all tasks.
+     * @param ui The user interface handler.
+     * @param storage The storage handler for reading/writing data.
+     * @return A boolean indicating whether the program should continue running.
+     * @throws HaileyException If an invalid command is encountered.
+     */
     public boolean processCommand(String input, TaskList tasks, UI ui, Storage storage) throws HaileyException {
         if (input.equals("bye")) {
             ui.sayBye();
