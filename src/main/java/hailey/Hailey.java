@@ -1,12 +1,14 @@
 package hailey;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
+
+import hailey.exception.HaileyException;
 import hailey.parser.Parser;
 import hailey.storage.Storage;
 import hailey.task.TaskList;
 import hailey.ui.Ui;
-import hailey.exception.HaileyException;
-import java.io.*;
-import java.util.Scanner;
 
 /**
  * The main class of the Hailey chatbot application.
@@ -17,6 +19,8 @@ public class Hailey {
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
+    private String commandType = "test";
+
 
     /**
      * Constructs a HaileyBot instance.
@@ -44,7 +48,8 @@ public class Hailey {
         while (isRunning) {
             String input = scanner.nextLine();
             try {
-                isRunning = parser.processCommand(input, tasks, ui, storage);
+                isRunning = !input.equals("bye");
+                parser.processCommand(input, tasks, ui, storage);
             } catch (HaileyException e) {
                 ui.errorMessage();
             }
@@ -60,4 +65,20 @@ public class Hailey {
     public static void main(String[] args) throws IOException {
         new Hailey("data/tasks.txt").run();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        try {
+            return parser.processCommand(input, tasks, ui, storage);
+        } catch (HaileyException e) {
+            return "Error: " + e.getMessage();
+        }
+    }
+    public String getCommandType() {
+        return commandType;
+    }
+
+
 }

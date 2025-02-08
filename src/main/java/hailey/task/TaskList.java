@@ -28,11 +28,14 @@ public class TaskList {
      * Marks a task as done.
      * @param taskNumber The index of the task to be marked as done.
      */
-    public void markDone(int taskNumber) {
+    public String markDone(int taskNumber) throws HaileyException {
         if (taskNumber >= 0 && taskNumber < tasks.size()) {
             Task task = tasks.get(taskNumber);
             task.markAsDone();
-            System.out.println(task);
+            return task.toString();
+        } else {
+            throw new HaileyException("Invalid task number! Please choose a task number within your list.\n" +
+                    "You currently have " + tasks.size() + " tasks.");
         }
     }
 
@@ -40,11 +43,14 @@ public class TaskList {
      * Marks a task as not done.
      * @param taskNumber The index of the task to be unmarked.
      */
-    public void unmarkDone(int taskNumber) {
+    public String unmarkDone(int taskNumber) throws HaileyException {
         if (taskNumber >= 0 && taskNumber < tasks.size()) {
             Task task = tasks.get(taskNumber);
             task.unmarkAsDone();
-            System.out.println(task);
+            return task.toString();
+        } else {
+            throw new HaileyException("Invalid task number! Please choose a task number within your list.\n" +
+                    "You currently have " + tasks.size() + " tasks.");
         }
     }
 

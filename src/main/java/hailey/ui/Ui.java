@@ -5,65 +5,61 @@ import hailey.task.*;
 import java.util.ArrayList;
 
 public class Ui {
-    static String line = "____________________________________________________________\n";
-    public void greet() {
-        System.out.println(line + "Hello! I'm Hailey :)\n"
-                + "What can I do for you?\n" + line);
+    public String greet() {
+        return  "Hello! I'm Hailey :)\n"
+                + "What can I do for you?\n";
     }
 
-    public void help() {
-        System.out.println(line + "you can add tasks by:\n" +
+    public String help() {
+        return "you can add tasks by:\n" +
                 " todo [description]\n" +
                 " deadline [description] /by [deadline]\n" +
                 " event [description] /from [start] /to [end]\n" +
                 "\nother commands:\n" +
                 " list //to view your list of tasks\n" +
                 " mark [task number] //to mark a task as done\n" +
-                " unmark [task number] //to unmark a task as done\n" +
-                line);
+                " unmark [task number] //to unmark a task as done\n";
     }
 
-    public void sayBye() {
-        System.out.println(line + "Bye. Hope to see you again soon!\n" + line);
+    public String sayBye() {
+        return "Bye. Hope to see you again soon!\n";
     }
 
-    public void addTask(Task task, TaskList tasks) {
-        System.out.println(line + "Got it. I've added this task:\n  " + task.toString()
-                + "\nNow you have " + tasks.getCount() + " tasks in the list.\n" + line);
+    public String addTask(Task task, TaskList tasks) {
+        return "Got it. I've added this task:\n  " + task.toString()
+                + "\nNow you have " + tasks.getCount() + " tasks in the list.\n";
     }
 
-    public void showTaskList(TaskList tasks) {
-        System.out.println(line + "Here are the tasks in your list:\n" + tasks.printTasks() + line);
+    public String showTaskList(TaskList tasks) {
+        return "Here are the tasks in your list:\n" + tasks.printTasks();
     }
 
-    public void markDone() {
-        System.out.println(line + "Nice! I've marked this task as done:\n");
+    public String markDone() {
+        return "Nice! I've marked this task as done:\n";
     }
 
-    public void unmarkDone() {
-        System.out.println(line + "OK, I've marked this task as not done yet:\n");
+    public String unmarkDone() {
+        return "OK, I've marked this task as not done yet:\n";
     }
 
-    public void deleteTask(TaskList tasks, int taskNumber) {
-        Task task = tasks.getTask(taskNumber);
-        System.out.println(line + "okay, I've removed this task:\n" + task.toString() +
-                "\nNow you have " + (tasks.getCount() - 1) + " tasks in the list.\n" + line);
+    public String deleteTask(Task task, int taskCount) {
+        return  "okay, I've removed this task:\n" + task.toString() +
+                "\nNow you have " + taskCount + " tasks in the list.\n";
     }
 
-    public void errorMessage() {
-        System.out.println("type 'help' to see a list of command formats :)\n" + line);
+    public String errorMessage() {
+        return "type 'help' to see a list of command formats :)\n";
     }
 
-    public void showMatchingTasks(ArrayList<Task> matchingTasks) {
-        System.out.println(line);
+    public String showMatchingTasks(ArrayList<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
-            System.out.println("No matching tasks found.");
+            return "No matching tasks found.";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder string = new StringBuilder("Here are the matching tasks in your list:");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println((i + 1) + "." + matchingTasks.get(i));
+                string.append((i + 1) + "." + matchingTasks.get(i));
             }
+            return string.toString();
         }
-        System.out.println(line);
     }
 }
