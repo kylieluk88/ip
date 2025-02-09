@@ -2,7 +2,6 @@ package hailey;
 
 import java.io.FileNotFoundException;
 
-
 import hailey.exception.HaileyException;
 import hailey.parser.Parser;
 import hailey.storage.Storage;

@@ -1,6 +1,10 @@
 package hailey.parser;
 
-import hailey.task.*;
+import hailey.task.TaskList;
+import hailey.task.Task;
+import hailey.task.ToDo;
+import hailey.task.Event;
+import hailey.task.Deadline;
 import hailey.storage.Storage;
 import hailey.ui.Ui;
 import hailey.exception.HaileyException;
@@ -100,6 +104,11 @@ public class Parser {
         return "";
     }
 
+    /**
+     * Processes the date and time string into LocalDateTime format to be stored.
+     * @param dateTimeStr date and time string to be parsed.
+     * @throws HaileyException If an invalid date format is encountered.
+     */
     private static LocalDateTime parseDateTime(String dateTimeStr) throws HaileyException {
         try {
             DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");

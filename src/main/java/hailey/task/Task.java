@@ -1,5 +1,4 @@
 package hailey.task;
-import hailey.exception.HaileyException;
 
 public class Task {
     protected String description;
