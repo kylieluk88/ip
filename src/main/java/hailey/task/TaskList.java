@@ -28,38 +28,30 @@ public class TaskList {
      * Marks a task as done.
      * @param taskNumber The index of the task to be marked as done.
      */
-    public String markDone(int taskNumber) throws HaileyException {
-        if (taskNumber >= 0 && taskNumber < tasks.size()) {
-            Task task = tasks.get(taskNumber);
-            task.markAsDone();
-            return task.toString();
-        } else {
-            throw new HaileyException("Invalid task number! Please choose a task number within your list.\n" +
-                    "You currently have " + tasks.size() + " tasks.");
-        }
+    public String markDone(int taskNumber) {
+        assert taskNumber >= 0 && taskNumber < tasks.size() : "Task number is out of bounds";
+        Task task = tasks.get(taskNumber);
+        task.markAsDone();
+        return task.toString();
     }
 
     /**
      * Marks a task as not done.
      * @param taskNumber The index of the task to be unmarked.
      */
-    public String unmarkDone(int taskNumber) throws HaileyException {
-        if (taskNumber >= 0 && taskNumber < tasks.size()) {
-            Task task = tasks.get(taskNumber);
-            task.unmarkAsDone();
-            return task.toString();
-        } else {
-            throw new HaileyException("Invalid task number! Please choose a task number within your list.\n" +
-                    "You currently have " + tasks.size() + " tasks.");
-        }
+    public String unmarkDone(int taskNumber) {
+        assert taskNumber >= 0 && taskNumber < tasks.size() : "Task number is out of bounds!";
+        Task task = tasks.get(taskNumber);
+        task.unmarkAsDone();
+        return task.toString();
     }
 
     /**
      * Deletes a task from the list.
      * @param taskNumber The index of the task to be deleted.
-     * @throws HaileyException If the task number is out of bounds.
      */
-    public void deleteTask(int taskNumber) throws HaileyException {
+    public void deleteTask(int taskNumber) {
+        assert taskNumber >= 0 && taskNumber < tasks.size() : "Task number is out of bounds!";
         tasks.remove(taskNumber);
     }
 

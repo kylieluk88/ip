@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("hailey.Hailey")
+    mainClass.set("hailey.GUI.Main")
 }
 /*
 shadowJar {

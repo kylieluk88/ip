@@ -33,9 +33,17 @@ public class Parser {
             return ui.showTaskList(tasks);
         } else if (input.startsWith("mark ")) {
             int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+            if (taskNumber <0 || taskNumber >= tasks.getCount()) {
+                throw new HaileyException("invalid task number! Please choose a task number within your list.\n" +
+                        "you currently have " + tasks.getCount() + " tasks.");
+            }
             return ui.markDone() + tasks.markDone(taskNumber);
         } else if (input.startsWith("unmark ")) {
             int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+            if (taskNumber <0 || taskNumber >= tasks.getCount()) {
+                throw new HaileyException("invalid task number! Please choose a task number within your list.\n" +
+                        "you currently have " + tasks.getCount() + " tasks.");
+            }
             return ui.unmarkDone() + tasks.unmarkDone(taskNumber);
         } else if (input.startsWith("delete ")) {
             int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
