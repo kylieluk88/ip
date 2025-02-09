@@ -1,5 +1,7 @@
 package hailey.task;
 
+import hailey.exception.HaileyException;
+
 import java.util.ArrayList;
 
 /**
@@ -19,7 +21,10 @@ public class TaskList {
      * Adds a task to the list.
      * @param task The task to be added.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws HaileyException {
+        if (isDuplicate(task)) {
+            throw new HaileyException("this task is already in your list!");
+        }
         tasks.add(task);
     }
 
@@ -100,6 +105,15 @@ public class TaskList {
 
     public void clearTasks() {
         tasks.clear();
+    }
+
+    /**
+     * Checks if a task already exists in the list.
+     * @param newTask The task to check.
+     * @return True if the task is a duplicate, otherwise false.
+     */
+    public boolean isDuplicate(Task newTask) {
+        return tasks.stream().anyMatch(task -> task.equals(newTask));
     }
 
     /**
