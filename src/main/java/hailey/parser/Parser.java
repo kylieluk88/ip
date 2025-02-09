@@ -40,8 +40,8 @@ public class Parser {
         } else if (input.startsWith("delete ")) {
             int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
             if (taskNumber <0 || taskNumber >= tasks.getCount()) {
-                throw new HaileyException("Invalid task number! Please choose a task number within your list.\n" +
-                        "You currently have " + tasks.getCount() + " tasks.");
+                throw new HaileyException("invalid task number! Please choose a task number within your list.\n" +
+                        "you currently have " + tasks.getCount() + " tasks.");
             }
             Task deletedTask = tasks.getTask(taskNumber);
             tasks.deleteTask(taskNumber);
@@ -84,7 +84,7 @@ public class Parser {
             ArrayList<Task> matchingTasks = tasks.find(keyword);
             return ui.showMatchingTasks(matchingTasks);
         } else {
-            throw new HaileyException("Sorry, didn't quite catch that. What did you say?");
+            throw new HaileyException("sorry, what did you say? type 'help' to see a list of command formats :)");
         }
     }
 
@@ -93,7 +93,7 @@ public class Parser {
             DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             return LocalDateTime.parse(dateTimeStr, inputFormatter);
         } catch (DateTimeParseException e1) {
-            throw new HaileyException("Invalid date/time format. Please use the format: d/M/yyyy HHmm (e.g., 2/12/2019 1800)");
+            throw new HaileyException("invalid date/time format. please use the format: d/M/yyyy HHmm (e.g., 2/12/2019 1800)");
         }
     }
 }

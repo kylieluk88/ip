@@ -12,13 +12,14 @@ public class Ui {
 
     public String help() {
         return "you can add tasks by:\n" +
-                " todo [description]\n" +
-                " deadline [description] /by [deadline]\n" +
-                " event [description] /from [start] /to [end]\n" +
+                " > todo [description]\n" +
+                " > deadline [description] /by [deadline]\n" +
+                " > event [description] /from [start] /to [end]\n" +
+                "* date format: d/M/yyyy HHmm\n" +
                 "\nother commands:\n" +
-                " list //to view your list of tasks\n" +
-                " mark [task number] //to mark a task as done\n" +
-                " unmark [task number] //to unmark a task as done\n";
+                " > list //to view your list of tasks\n" +
+                " > mark [task number] //to mark a task as done\n" +
+                " > unmark [task number] //to unmark a task as done\n";
     }
 
     public String sayBye() {
@@ -45,10 +46,6 @@ public class Ui {
     public String deleteTask(Task task, int taskCount) {
         return  "okay, I've removed this task:\n" + task.toString() +
                 "\nNow you have " + taskCount + " tasks in the list.\n";
-    }
-
-    public String errorMessage() {
-        return "type 'help' to see a list of command formats :)\n";
     }
 
     public String showMatchingTasks(ArrayList<Task> matchingTasks) {
