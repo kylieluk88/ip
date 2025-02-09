@@ -35,8 +35,8 @@ public class Deadline extends Task {
      * Returns a formatted string for saving the Event task to a file.
      * @return The formatted save string.
      */
-    public String saveFormat() {
+    public String toSaveFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return "D" + super.saveFormat() + " | " + by.format(formatter);
+        return "D" + super.toSaveFormat() + " | " + by.format(formatter);
     }
 }

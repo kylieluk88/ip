@@ -48,7 +48,7 @@ public class Task {
      * Returns a string formatted for saving to a file.
      * @return The formatted string for saving.
      */
-    public String saveFormat() {
+    public String toSaveFormat() {
         return " | " + (isDone ? "1" : "0") + " | " + description;
     }
 

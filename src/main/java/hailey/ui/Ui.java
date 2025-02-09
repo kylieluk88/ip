@@ -1,6 +1,7 @@
 package hailey.ui;
 
-import hailey.task.*;
+import hailey.task.Task;
+import hailey.task.TaskList;
 
 import java.util.ArrayList;
 
@@ -10,7 +11,7 @@ public class Ui {
                 + "What can I do for you?\n";
     }
 
-    public String help() {
+    public String showHelp() {
         return "you can add tasks by:\n" +
                 " > todo [description]\n" +
                 " > deadline [description] /by [deadline]\n" +
@@ -26,24 +27,24 @@ public class Ui {
         return "Bye. Hope to see you again soon!\n";
     }
 
-    public String addTask(Task task, TaskList tasks) {
+    public String printAddMessage(Task task, TaskList tasks) {
         return "Got it. I've added this task:\n  " + task.toString()
-                + "\nNow you have " + tasks.getCount() + " tasks in the list.\n";
+                + "\nNow you have " + tasks.getSize() + " tasks in the list.\n";
     }
 
     public String showTaskList(TaskList tasks) {
         return "Here are the tasks in your list:\n" + tasks.printTasks();
     }
 
-    public String markDone() {
+    public String markDoneMessage() {
         return "Nice! I've marked this task as done:\n";
     }
 
-    public String unmarkDone() {
+    public String unmarkDoneMessage() {
         return "OK, I've marked this task as not done yet:\n";
     }
 
-    public String deleteTask(Task task, int taskCount) {
+    public String deleteTaskMessage(Task task, int taskCount) {
         return  "okay, I've removed this task:\n" + task.toString() +
                 "\nNow you have " + taskCount + " tasks in the list.\n";
     }
@@ -58,5 +59,9 @@ public class Ui {
             }
             return string.toString();
         }
+    }
+
+    public String showCleared() {
+        return "done! no tasks left. what would you like to do today?";
     }
 }

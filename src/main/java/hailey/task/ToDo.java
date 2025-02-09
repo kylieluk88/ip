@@ -25,7 +25,7 @@ public class ToDo extends Task {
      * Returns a formatted string for saving the Event task to a file.
      * @return The formatted save string.
      */
-    public String saveFormat() {
-        return "T" + super.saveFormat();
+    public String toSaveFormat() {
+        return "T" + super.toSaveFormat();
     }
 }

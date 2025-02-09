@@ -38,9 +38,9 @@ public class Event extends Task {
      * Returns a formatted string for saving the Event task to a file.
      * @return The formatted save string.
      */
-    public String saveFormat() {
+    public String toSaveFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
-        return "E" + super.saveFormat() + " | " + start.format(formatter) + " | " + end.format(formatter);
+        return "E" + super.toSaveFormat() + " | " + start.format(formatter) + " | " + end.format(formatter);
     }
 }
 

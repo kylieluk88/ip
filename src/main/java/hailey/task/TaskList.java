@@ -1,5 +1,4 @@
 package hailey.task;
-import hailey.exception.HaileyException;
 
 import java.util.ArrayList;
 
@@ -94,16 +93,20 @@ public class TaskList {
     public String saveTasks() {
         StringBuilder taskList = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            taskList.append(tasks.get(i).saveFormat()).append("\n");
+            taskList.append(tasks.get(i).toSaveFormat()).append("\n");
         }
         return taskList.toString();
+    }
+
+    public void clearTasks() {
+        tasks.clear();
     }
 
     /**
      * Gets the total number of tasks in the list.
      * @return The count of tasks.
      */
-    public int getCount() {
+    public int getSize() {
         return tasks.size();
     }
 
