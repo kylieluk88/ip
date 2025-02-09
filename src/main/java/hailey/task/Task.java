@@ -54,4 +54,17 @@ public class Task {
     public String getDescription() {
         return this.description;
     }
+
+    /**
+     * Compares two tasks based on their description.
+     * @param obj The object to compare with.
+     * @return True if the tasks are the same, otherwise false.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Task task = (Task) obj;
+        return description.toLowerCase().equals(task.description.toLowerCase());
+    }
 }
