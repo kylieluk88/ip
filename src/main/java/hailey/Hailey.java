@@ -40,7 +40,9 @@ public class Hailey {
      */
     public String getResponse(String input) {
         try {
-            return parser.processCommand(input, tasks, ui, storage);
+            String response = parser.processCommand(input, tasks, ui, storage);
+            storage.writeFile(tasks);
+            return response;
         } catch (HaileyException e) {
             return e.getMessage();
         }
