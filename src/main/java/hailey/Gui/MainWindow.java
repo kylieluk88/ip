@@ -51,6 +51,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getHaileyDialog(response, haileyImage)
         );
         userInput.clear();
+        if (input.equals("bye")) {
+            System.exit(0);
+        }
     }
 
 }

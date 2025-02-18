@@ -33,6 +33,8 @@ public class Parser {
         String command = words[0];
 
         switch (command) {
+            case "hi":
+                return ui.greet();
             case "bye":
                 return ui.sayBye();
             case "help":
@@ -65,7 +67,7 @@ public class Parser {
     private String handleTaskModification(String command, String input, TaskList tasks, Ui ui) throws HaileyException {
         int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
         if (taskNumber < 0 || taskNumber >= tasks.getSize()) {
-            throw new HaileyException("invalid task number! Please choose a task number within your list.\n" +
+            throw new HaileyException("invalid task number! please choose a task number within your list.\n" +
                     "you currently have " + tasks.getSize() + " tasks.");
         }
 

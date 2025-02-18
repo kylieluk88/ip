@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class Ui {
     public String greet() {
-        return  "Hello! I'm Hailey :)\n"
-                + "What can I do for you?\n";
+        return  "hi there! i'm hailey :)\n"
+                + "what would you like to do today?\n";
     }
 
     public String showHelp() {
@@ -24,36 +24,36 @@ public class Ui {
     }
 
     public String sayBye() {
-        return "Bye. Hope to see you again soon!\n";
+        return "aw okay bye.. good luck with your tasks ;D\n";
     }
 
     public String printAddMessage(Task task, TaskList tasks) {
-        return "Got it. I've added this task:\n  " + task.toString()
-                + "\nNow you have " + tasks.getSize() + " tasks in the list.\n";
+        return "got it! i've added this task:\n  " + task.toString()
+                + "\nnow you have " + tasks.getSize() + " tasks in the list.\n";
     }
 
     public String showTaskList(TaskList tasks) {
-        return "Here are the tasks in your list:\n" + tasks.printTasks();
+        return "here are the tasks in your list:\n" + tasks.printTasks();
     }
 
     public String markDoneMessage() {
-        return "Nice! I've marked this task as done:\n";
+        return "good job! I've marked this task as done:\n";
     }
 
     public String unmarkDoneMessage() {
-        return "OK, I've marked this task as not done yet:\n";
+        return "okay, I've marked this task as not done yet:\n";
     }
 
     public String deleteTaskMessage(Task task, int taskCount) {
         return  "okay, I've removed this task:\n" + task.toString() +
-                "\nNow you have " + taskCount + " tasks in the list.\n";
+                "\nnow you have " + taskCount + " tasks in the list.\n";
     }
 
     public String showMatchingTasks(ArrayList<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
-            return "No matching tasks found.";
+            return "no matching tasks found";
         } else {
-            StringBuilder string = new StringBuilder("Here are the matching tasks in your list:");
+            StringBuilder string = new StringBuilder("here are the matching tasks in your list:");
             for (int i = 0; i < matchingTasks.size(); i++) {
                 string.append((i + 1) + "." + matchingTasks.get(i));
             }
