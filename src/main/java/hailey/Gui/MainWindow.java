@@ -1,4 +1,4 @@
-package hailey.GUI;
+package hailey.Gui;
 
 import hailey.Hailey;
 import javafx.fxml.FXML;

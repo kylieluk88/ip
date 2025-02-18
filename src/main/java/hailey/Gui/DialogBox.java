@@ -1,4 +1,4 @@
-package hailey.GUI;
+package hailey.Gui;
 
 import java.io.IOException;
 import java.util.Collections;

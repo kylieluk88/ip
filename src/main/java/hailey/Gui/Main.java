@@ -1,4 +1,4 @@
-package hailey.GUI;
+package hailey.Gui;
 
 import java.io.IOException;
 
@@ -25,7 +25,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<hailey.GUI.MainWindow>getController().setHailey(hailey);  // inject the Duke instance
+            fxmlLoader.<hailey.Gui.MainWindow>getController().setHailey(hailey);  // inject the Duke instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
