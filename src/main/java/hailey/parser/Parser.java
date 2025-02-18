@@ -31,6 +31,7 @@ public class Parser {
     public String processCommand(String input, TaskList tasks, Ui ui, Storage storage) throws HaileyException {
         String[] words = input.split(" ", 2);
         String command = words[0];
+
         switch (command) {
             case "bye":
                 return ui.sayBye();
@@ -44,64 +45,99 @@ public class Parser {
             case "mark":
             case "unmark":
             case "delete":
-                int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
-                if (taskNumber < 0 || taskNumber >= tasks.getSize()) {
-                    throw new HaileyException("invalid task number! Please choose a task number within your list.\n" +
-                            "you currently have " + tasks.getSize() + " tasks.");
-                }
-                switch (command) {
-                    case "mark":
-                        return ui.markDoneMessage() + tasks.markDone(taskNumber);
-                    case "unmark":
-                        return ui.unmarkDoneMessage() + tasks.unmarkDone(taskNumber);
-                    case "delete":
-                        Task deletedTask = tasks.getTask(taskNumber);
-                        tasks.deleteTask(taskNumber);
-                        return ui.deleteTaskMessage(deletedTask, tasks.getSize());
-                }
-                break;
+                return handleTaskModification(command, input, tasks, ui);
             case "deadline":
-                if (!input.contains("/by")) {
-                    throw new HaileyException("oops! deadline must include '/by' keyword");
-                }
-                String[] deadlineParts = input.substring(9).split(" /by ");
-                if (deadlineParts.length < 2) {
-                    throw new EmptyDescriptionException("deadline");
-                }
-                LocalDateTime by = parseDateTime(deadlineParts[1]);
-                Deadline deadline = new Deadline(deadlineParts[0], by);
-                tasks.addTask(new Deadline(deadlineParts[0], by));
-                return ui.printAddMessage(deadline, tasks);
+                return handleDeadline(input, tasks, ui);
             case "event":
-                if (!input.contains("/from") || !input.contains("/to")) {
-                    throw new HaileyException("oops! event must include '/from' and '/to' keyword");
-                }
-                String[] eventParts = input.substring(6).split(" /from | /to ");
-                if (eventParts.length < 3) {
-                    throw new EmptyDescriptionException("event");
-                }
-                LocalDateTime start = parseDateTime(eventParts[1]);
-                LocalDateTime end = parseDateTime(eventParts[2]);
-                Event event = new Event(eventParts[0], start, end);
-                tasks.addTask(event);
-                return ui.printAddMessage(event, tasks);
+                return handleEvent(input, tasks, ui);
             case "todo":
-                if (input.substring(4).isEmpty()) {
-                    throw new EmptyDescriptionException("todo");
-                }
-                String description = input.substring(5);
-                ToDo todo = new ToDo(description);
-                tasks.addTask(todo);
-                return ui.printAddMessage(todo, tasks);
+                return handleToDo(input, tasks, ui);
             case "find":
-                String keyword = input.substring(5).trim();
-                ArrayList<Task> matchingTasks = tasks.find(keyword);
-                return ui.showMatchingTasks(matchingTasks);
+                return handleFind(input, tasks, ui);
             default:
                 throw new HaileyException("sorry, what did you say? type 'help' to see a list of command formats :)");
         }
+    }
 
-        return "";
+    /**
+     * Handles marking, unmarking, and deleting tasks.
+     */
+    private String handleTaskModification(String command, String input, TaskList tasks, Ui ui) throws HaileyException {
+        int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+        if (taskNumber < 0 || taskNumber >= tasks.getSize()) {
+            throw new HaileyException("invalid task number! Please choose a task number within your list.\n" +
+                    "you currently have " + tasks.getSize() + " tasks.");
+        }
+
+        switch (command) {
+            case "mark":
+                return ui.markDoneMessage() + tasks.markDone(taskNumber);
+            case "unmark":
+                return ui.unmarkDoneMessage() + tasks.unmarkDone(taskNumber);
+            case "delete":
+                Task deletedTask = tasks.getTask(taskNumber);
+                tasks.deleteTask(taskNumber);
+                return ui.deleteTaskMessage(deletedTask, tasks.getSize());
+            default:
+                return "";
+        }
+    }
+
+    /**
+     * Handles adding a deadline task.
+     */
+    private String handleDeadline(String input, TaskList tasks, Ui ui) throws HaileyException {
+        if (!input.contains("/by")) {
+            throw new HaileyException("oops! deadline must include '/by' keyword");
+        }
+        String[] deadlineParts = input.substring(9).split(" /by ");
+        if (deadlineParts.length < 2) {
+            throw new EmptyDescriptionException("deadline");
+        }
+        LocalDateTime by = parseDateTime(deadlineParts[1]);
+        Deadline deadline = new Deadline(deadlineParts[0], by);
+        tasks.addTask(deadline);
+        return ui.printAddMessage(deadline, tasks);
+    }
+
+    /**
+     * Handles adding an event task.
+     */
+    private String handleEvent(String input, TaskList tasks, Ui ui) throws HaileyException {
+        if (!input.contains("/from") || !input.contains("/to")) {
+            throw new HaileyException("oops! event must include '/from' and '/to' keyword");
+        }
+        String[] eventParts = input.substring(6).split(" /from | /to ");
+        if (eventParts.length < 3) {
+            throw new EmptyDescriptionException("event");
+        }
+        LocalDateTime start = parseDateTime(eventParts[1]);
+        LocalDateTime end = parseDateTime(eventParts[2]);
+        Event event = new Event(eventParts[0], start, end);
+        tasks.addTask(event);
+        return ui.printAddMessage(event, tasks);
+    }
+
+    /**
+     * Handles adding a ToDo task.
+     */
+    private String handleToDo(String input, TaskList tasks, Ui ui) throws HaileyException {
+        if (input.substring(4).isEmpty()) {
+            throw new EmptyDescriptionException("todo");
+        }
+        String description = input.substring(5);
+        ToDo todo = new ToDo(description);
+        tasks.addTask(todo);
+        return ui.printAddMessage(todo, tasks);
+    }
+
+    /**
+     * Handles finding tasks that match a keyword.
+     */
+    private String handleFind(String input, TaskList tasks, Ui ui) {
+        String keyword = input.substring(5).trim();
+        ArrayList<Task> matchingTasks = tasks.find(keyword);
+        return ui.showMatchingTasks(matchingTasks);
     }
 
     /**
