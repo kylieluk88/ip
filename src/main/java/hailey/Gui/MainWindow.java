@@ -46,10 +46,9 @@ public class MainWindow extends AnchorPane {
 
         String input = userInput.getText();
         String response = hailey.getResponse(input);
-        String commandType = hailey.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getHaileyDialog(response, haileyImage, commandType)
+                DialogBox.getHaileyDialog(response, haileyImage)
         );
         userInput.clear();
     }

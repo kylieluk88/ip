@@ -47,9 +47,4 @@ public class Hailey {
             return e.getMessage();
         }
     }
-    public String getCommandType() {
-        return commandType;
-    }
-
-
 }

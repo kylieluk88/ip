@@ -53,27 +53,10 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getHaileyDialog(String text, Image img, String commandType) {
+    public static DialogBox getHaileyDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
-        db.changeDialogStyle(commandType);
         return db;
-    }
-
-    private void changeDialogStyle(String commandType) {
-        switch(commandType) {
-            case "AddCommand":
-                dialog.getStyleClass().add("add-label");
-                break;
-            case "ChangeMarkCommand":
-                dialog.getStyleClass().add("marked-label");
-                break;
-            case "DeleteCommand":
-                dialog.getStyleClass().add("delete-label");
-                break;
-            default:
-                // Do nothing
-        }
     }
 
 }
