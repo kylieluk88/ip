@@ -20,7 +20,11 @@ public class Ui {
                 "\nother commands:\n" +
                 " > list //to view your list of tasks\n" +
                 " > mark [task number] //to mark a task as done\n" +
-                " > unmark [task number] //to unmark a task as done\n";
+                " > unmark [task number] //to unmark a task as done" +
+                " > delete [task number] //to delete a task from your list\n" +
+                " > find [keyword] //returns a list of tasks containing this keyword\n" +
+                " > clear //clears all tasks from list\n" +
+                " > bye //exits program";
     }
 
     public String sayBye() {
@@ -53,9 +57,9 @@ public class Ui {
         if (matchingTasks.isEmpty()) {
             return "no matching tasks found";
         } else {
-            StringBuilder string = new StringBuilder("here are the matching tasks in your list:");
+            StringBuilder string = new StringBuilder("here are the matching tasks in your list:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                string.append((i + 1) + "." + matchingTasks.get(i));
+                string.append((i + 1) + ". " + matchingTasks.get(i) +"\n");
             }
             return string.toString();
         }
