@@ -44,14 +44,9 @@ test {
 }
 
 application {
-    mainClass.set("hailey.GUI.Main")
+    mainClass.set("hailey.Gui.Main")
 }
-/*
-shadowJar {
-    archiveBaseName = "duke"
-    archiveClassifier = null
-}
-*/
+
 shadowJar {
     archiveFileName = 'hailey.jar'
 }
