@@ -1,6 +1,6 @@
 # Hailey User Guide
 
-// Product screenshot goes here
+![Hailey Bot Screenshot](image.png)
 
 Hailey is a friendly chatbot that helps you manage your tasks efficiently. 
 Whether it's ToDos, Deadlines, or Events, Hailey keeps your schedule organized and even reminds you of upcoming tasks.
