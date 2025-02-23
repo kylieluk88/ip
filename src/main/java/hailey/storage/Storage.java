@@ -1,13 +1,22 @@
 package hailey.storage;
 
-import hailey.task.*;
-import hailey.exception.HaileyException;
-
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+
+import hailey.exception.HaileyException;
+import hailey.task.Deadline;
+import hailey.task.Event;
+import hailey.task.Task;
+import hailey.task.TaskList;
+import hailey.task.ToDo;
+
 
 /**
  * The Storage class handles loading and saving tasks from a file.
@@ -102,7 +111,8 @@ public class Storage {
             DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             return LocalDateTime.parse(dateTimeStr, fileFormatter);
         } catch (DateTimeParseException e2) {
-            throw new HaileyException("Invalid date/time format. Please use the format: d/M/yyyy HHmm (e.g., 2/12/2019 1800)");
+            throw new HaileyException("Invalid date/time format. "
+                    + "Please use the format: d/M/yyyy HHmm (e.g., 2/12/2019 1800)");
         }
     }
 }

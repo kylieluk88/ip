@@ -1,18 +1,20 @@
 package hailey.parser;
 
-import hailey.task.TaskList;
-import hailey.task.Task;
-import hailey.task.ToDo;
-import hailey.task.Event;
-import hailey.task.Deadline;
-import hailey.storage.Storage;
-import hailey.ui.Ui;
-import hailey.exception.HaileyException;
-import hailey.exception.EmptyDescriptionException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import hailey.exception.EmptyDescriptionException;
+import hailey.exception.HaileyException;
+import hailey.storage.Storage;
+import hailey.task.Deadline;
+import hailey.task.Event;
+import hailey.task.Task;
+import hailey.task.TaskList;
+import hailey.task.ToDo;
+import hailey.ui.Ui;
+
 
 /**
  * The Parser class interprets user input and executes the corresponding commands.
@@ -33,31 +35,31 @@ public class Parser {
         String command = words[0];
 
         switch (command) {
-            case "hi":
-                return ui.greet();
-            case "bye":
-                return ui.sayBye();
-            case "help":
-                return ui.showHelp();
-            case "list":
-                return ui.showTaskList(tasks);
-            case "clear":
-                tasks.clearTasks();
-                return ui.showCleared();
-            case "mark":
-            case "unmark":
-            case "delete":
-                return handleTaskModification(command, input, tasks, ui);
-            case "deadline":
-                return handleDeadline(input, tasks, ui);
-            case "event":
-                return handleEvent(input, tasks, ui);
-            case "todo":
-                return handleToDo(input, tasks, ui);
-            case "find":
-                return handleFind(input, tasks, ui);
-            default:
-                throw new HaileyException("sorry, what did you say? type 'help' to see a list of command formats :)");
+        case "hi":
+            return ui.greet();
+        case "bye":
+            return ui.sayBye();
+        case "help":
+            return ui.showHelp();
+        case "list":
+            return ui.showTaskList(tasks);
+        case "clear":
+            tasks.clearTasks();
+            return ui.showCleared();
+        case "mark":
+        case "unmark":
+        case "delete":
+            return handleTaskModification(command, input, tasks, ui);
+        case "deadline":
+            return handleDeadline(input, tasks, ui);
+        case "event":
+            return handleEvent(input, tasks, ui);
+        case "todo":
+            return handleToDo(input, tasks, ui);
+        case "find":
+            return handleFind(input, tasks, ui);
+        default:
+            throw new HaileyException("sorry, what did you say? type 'help' to see a list of command formats :)");
         }
     }
 
@@ -67,21 +69,21 @@ public class Parser {
     private String handleTaskModification(String command, String input, TaskList tasks, Ui ui) throws HaileyException {
         int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
         if (taskNumber < 0 || taskNumber >= tasks.getSize()) {
-            throw new HaileyException("invalid task number! please choose a task number within your list.\n" +
-                    "you currently have " + tasks.getSize() + " tasks.");
+            throw new HaileyException("invalid task number! please choose a task number within your list.\n"
+                    + "you currently have " + tasks.getSize() + " tasks.");
         }
 
         switch (command) {
-            case "mark":
-                return ui.markDoneMessage() + tasks.markDone(taskNumber);
-            case "unmark":
-                return ui.unmarkDoneMessage() + tasks.unmarkDone(taskNumber);
-            case "delete":
-                Task deletedTask = tasks.getTask(taskNumber);
-                tasks.deleteTask(taskNumber);
-                return ui.deleteTaskMessage(deletedTask, tasks.getSize());
-            default:
-                return "";
+        case "mark":
+            return ui.markDoneMessage() + tasks.markDone(taskNumber);
+        case "unmark":
+            return ui.unmarkDoneMessage() + tasks.unmarkDone(taskNumber);
+        case "delete":
+            Task deletedTask = tasks.getTask(taskNumber);
+            tasks.deleteTask(taskNumber);
+            return ui.deleteTaskMessage(deletedTask, tasks.getSize());
+        default:
+            return "";
         }
     }
 
@@ -152,7 +154,8 @@ public class Parser {
             DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             return LocalDateTime.parse(dateTimeStr, inputFormatter);
         } catch (DateTimeParseException e1) {
-            throw new HaileyException("invalid date/time format. please use the format: d/M/yyyy HHmm (e.g., 2/12/2019 1800)");
+            throw new HaileyException("invalid date/time format. "
+                    + "please use the format: d/M/yyyy HHmm (e.g., 2/12/2019 1800)");
         }
     }
 }

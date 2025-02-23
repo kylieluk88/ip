@@ -1,8 +1,9 @@
 package hailey.task;
 
+import java.util.ArrayList;
+
 import hailey.exception.HaileyException;
 
-import java.util.ArrayList;
 
 /**
  * Manages a list of tasks.
@@ -84,8 +85,8 @@ public class TaskList {
         } else {
             StringBuilder taskList = new StringBuilder();
             for (int i = 0; i < tasks.size(); i++) {
-                taskList.append((i + 1)).append(". ").
-                append(tasks.get(i).toString()).append("\n");
+                taskList.append((i + 1)).append(". ")
+                                .append(tasks.get(i).toString()).append("\n");
             }
             return taskList.toString();
         }

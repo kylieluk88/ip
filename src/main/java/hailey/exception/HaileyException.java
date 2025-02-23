@@ -1,5 +1,8 @@
 package hailey.exception;
 
+/**
+ * The exceptions used by hailey bot.
+ */
 public class HaileyException extends Exception {
     private String message;
 

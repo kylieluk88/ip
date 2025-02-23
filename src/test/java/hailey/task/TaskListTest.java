@@ -1,15 +1,17 @@
 package hailey.task;
 
-import hailey.exception.HaileyException;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
+import hailey.exception.HaileyException;
+
 
 public class TaskListTest {
 
     @Test
-    void addTask_validTask_taskIsAdded() {
+    void addTask_validTask_taskIsAdded() throws HaileyException {
         TaskList taskList = new TaskList();
         Task todo = new ToDo("Read a book");
         taskList.addTask(todo);
