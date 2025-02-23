@@ -77,7 +77,7 @@ public class Ui {
      * @return A message confirming task completion.
      */
     public String markDoneMessage() {
-        return "good job! I've marked this task as done:\n";
+        return "good job! i've marked this task as done:\n";
     }
 
     /**
@@ -86,7 +86,7 @@ public class Ui {
      * @return A message confirming task unmarking.
      */
     public String unmarkDoneMessage() {
-        return "okay, I've marked this task as not done yet:\n";
+        return "okay, i've marked this task as not done yet:\n";
     }
 
     /**
@@ -97,7 +97,7 @@ public class Ui {
      * @return A message confirming task deletion.
      */
     public String deleteTaskMessage(Task task, int taskCount) {
-        return "okay, I've removed this task:\n" + task.toString()
+        return "okay, i've removed this task:\n" + task.toString()
                 + "\nnow you have " + taskCount + " tasks in the list.\n";
     }
 
